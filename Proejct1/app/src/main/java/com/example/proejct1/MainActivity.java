@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         textView1 = findViewById(R.id.textView);
 
-        textView1.setText("fjweipfwefpejfopwjfpewfpjewqopfpejowfp");
+        textView1.setText("fjweipfwefpejfopwjfpewfpjewqopfpejowfpfsejfpisefjpsfpj");
 
         button = findViewById(R.id.button);
 
