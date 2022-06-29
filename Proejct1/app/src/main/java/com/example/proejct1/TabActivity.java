@@ -19,6 +19,6 @@ public class TabActivity extends AppCompatActivity {
 
         layout = findViewById(R.id.tablayout);
 
-        layout.addTab();
+        //layout.addTab();
     }
 }
