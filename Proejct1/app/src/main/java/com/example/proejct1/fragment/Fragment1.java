@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proejct1.R;
-import com.example.proejct1.TabActivity;
+import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.contact.ContactAdapter;
 import com.example.proejct1.model.Contact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +26,7 @@ public class Fragment1 extends Fragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
+    private ImageView noImage;
 
     private ContactAdapter adapter = new ContactAdapter();
 
@@ -46,14 +47,16 @@ public class Fragment1 extends Fragment {
     private void findViewByIds(View v) {
         recyclerView = v.findViewById(R.id.contact_recyclerview);
         floatingActionButton = v.findViewById(R.id.float_btn);
+        noImage = v.findViewById(R.id.no_image);
     }
 
     private void setFloatingActionButton() {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((TabActivity) getActivity()).callContactPermission();
+                ((MainActivity) getActivity()).callContactPermission();
                 floatingActionButton.setVisibility(View.INVISIBLE);
+                noImage.setVisibility(View.INVISIBLE);
             }
         });
     }

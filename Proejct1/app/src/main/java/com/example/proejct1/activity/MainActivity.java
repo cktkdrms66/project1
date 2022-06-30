@@ -1,4 +1,4 @@
-package com.example.proejct1;
+package com.example.proejct1.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,16 +24,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.proejct1.R;
 import com.example.proejct1.fragment.Fragment1;
 import com.example.proejct1.fragment.Fragment2;
 import com.example.proejct1.fragment.Fragment3;
 import com.example.proejct1.fragment.FragmentAdapter;
 import com.example.proejct1.model.Contact;
+import com.example.proejct1.model.Person;
+import com.example.proejct1.model.Sex;
+import com.example.proejct1.model.University;
+import com.example.proejct1.util.util;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class TabActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
 
     private TabLayout layout;
     private ViewPager2 viewPager2;
@@ -44,11 +55,7 @@ public class TabActivity extends AppCompatActivity {
     private Fragment2 fragment2;
     private Fragment3 fragment3;
 
-    private ArrayList<Contact> contacts;
-
-    private static final int CONTACT_RESULT_CODE = 0;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-    private static final int PERMISSIONS_REQUEST_WRITE_CONTACTS = 101;
 
 
     @Override
@@ -59,7 +66,7 @@ public class TabActivity extends AppCompatActivity {
         findViewByIds();
         setTab();
 
-
+        setPersonData();
     }
 
     private void findViewByIds() {
@@ -143,7 +150,7 @@ public class TabActivity extends AppCompatActivity {
     @SuppressLint("Range")
     private void setContactData() {
 
-        contacts = new ArrayList<>();
+        ArrayList<Contact> contacts = new ArrayList<>();
 
         Cursor c = getContentResolver().query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
@@ -166,5 +173,19 @@ public class TabActivity extends AppCompatActivity {
 
     }
 
+    public void setPersonData() {
+        String personsTxt = util.readRawTxt(this, R.raw.persons);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            List<Person> persons = mapper.readValue(personsTxt, new TypeReference<List<Person>>(){});
+            fragment3.setPersons(persons);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
