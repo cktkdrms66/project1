@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proejct1.R;
+import com.example.proejct1.TabActivity;
 import com.example.proejct1.contact.ContactAdapter;
 import com.example.proejct1.model.Contact;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +25,40 @@ import java.util.List;
 public class Fragment1 extends Fragment {
 
     private RecyclerView recyclerView;
-    private ContactAdapter adapter;
+    private FloatingActionButton floatingActionButton;
+
+    private ContactAdapter adapter = new ContactAdapter();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment1, container, false);
-        recyclerView = v.findViewById(R.id.contact_recyclerview);
 
+        findViewByIds(v);
+
+        setFloatingActionButton();
         setRecyclerView();
 
         return v;
     }
+
+    private void findViewByIds(View v) {
+        recyclerView = v.findViewById(R.id.contact_recyclerview);
+        floatingActionButton = v.findViewById(R.id.float_btn);
+    }
+
+    private void setFloatingActionButton() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((TabActivity) getActivity()).callContactPermission();
+                floatingActionButton.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+
 
     public void setContacts(List<Contact> contacts) {
         adapter.setItems(contacts);
@@ -47,13 +70,11 @@ public class Fragment1 extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), 1));
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(), RecyclerView.VERTICAL, false)) ; // 상하 스크롤r
 
-
-        adapter = new ContactAdapter();
-
         adapter.setItems(new ArrayList<Contact>());
 
         recyclerView.setAdapter(adapter);
     }
+
 
 
 
