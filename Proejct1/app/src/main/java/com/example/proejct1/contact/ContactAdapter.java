@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proejct1.R;
-import com.example.proejct1.Tab1ViewHolder;
 import com.example.proejct1.model.Contact;
 
 import java.util.ArrayList;
