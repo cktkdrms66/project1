@@ -1,11 +1,17 @@
 package com.example.proejct1;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -39,18 +45,19 @@ public class TabActivity extends AppCompatActivity {
     private ArrayList<Contact> contacts;
 
     private static final int CONTACT_RESULT_CODE = 0;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    private static final int PERMISSIONS_REQUEST_WRITE_CONTACTS = 101;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-
         findViewByIds();
-
         setTab();
 
-        requestContactsData();
+
     }
 
     private void findViewByIds() {
@@ -100,42 +107,60 @@ public class TabActivity extends AppCompatActivity {
         });
     }
 
+    public void callContactPermission() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
 
-    private void requestContactsData() {
+            requestPermissions(
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    PERMISSIONS_REQUEST_READ_CONTACTS);
+            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        } else {
+            // 해당 로직으로 이동
+            setContactData();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                setContactData();
+            } else {
+                Toast.makeText(this, "권한을 허용해주세요", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @SuppressLint("Range")
+    private void setContactData() {
 
         contacts = new ArrayList<>();
 
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        Cursor c = getContentResolver().query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                null, null, null);
+        while (c.moveToNext()) {
 
-        ActivityResultLauncher<Intent> activityResultLauncher
-                = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    System.out.println("돌아옴");
+            String name = c
+                    .getString(c
+                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String number = c
+                    .getString(c
+                            .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
+            contacts.add(new Contact(name, number));
 
-                    Cursor cursor = getContentResolver().query(result.getData().getData(),
-                            new String[] { ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                                    ContactsContract.CommonDataKinds.Phone.NUMBER },
-                            null, null, null);
+        }
+        c.close();
 
-                    while (cursor.moveToNext()) {
-                        String name = cursor.getString(0);
-                        String number = cursor.getString(1);
-                        System.out.println(name);
-                        contacts.add(new Contact(name, number));
-                    }
-
-                    cursor.close();
-
-                    fragment1.setContacts(contacts);
-
-                }
-            }
-        });
-        activityResultLauncher.launch(intent);
+        fragment1.setContacts(contacts);
 
     }
 
