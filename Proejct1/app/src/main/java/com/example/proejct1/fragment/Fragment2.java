@@ -13,16 +13,6 @@ import com.example.proejct1.R;
 
 public class Fragment2 extends Fragment {
 
-    private int img;
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
-    }
-
 
     @Nullable
     @Override

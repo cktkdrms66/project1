@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
@@ -18,6 +17,14 @@
         android:scrollbarSize="5dp"
         android:scrollbarThumbVertical="@android:color/darker_gray"
         android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:text="불러오기"
+        android:textSize="25dp"/>
 
 
 </LinearLayout>
