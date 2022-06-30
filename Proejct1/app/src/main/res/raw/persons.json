@@ -1,5 +1,13 @@
 [
   {
+    "name": "정영훈",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Shakedown_2008_Figure_1a.jpg/1200px-Shakedown_2008_Figure_1a.jpg",
+    "university": "KAIST",
+    "age": 21,
+    "sex": "MALE",
+    "url": "https://www.youtube.com/watch?v=i_bJwt7uTwQ"
+  },
+  {
     "name": "차상근",
     "img": "https://img.hankyung.com/photo/201905/2019051717405998852-540x770.jpg",
     "university": "HANYANG",
@@ -7,20 +15,13 @@
     "sex": "MALE",
     "url": ""
   },
+
   {
-    "name": "테스트",
-    "img": "https://i.ytimg.com/vi/5we6t_wgyJg/maxresdefault.jpg",
-    "university": "BUSAN",
-    "age": 100,
+    "name": "손유진",
+    "img": "http://bassgosushop.com/web/product/big/202101/79d15f6223275e4726f7c80ae97bf903.jpg",
+    "university": "SOOKMYUNG",
+    "age": 23,
     "sex": "FEMALE",
-    "url": "https://www.youtube.com/watch?v=ESRYFfaA19Y&list=RDESRYFfaA19Y&start_radio=1"
-  },
-  {
-    "name": "테스트2",
-    "img": "https://i.ytimg.com/vi/MGN-GcTKVn0/maxresdefault.jpg",
-    "university": "KAIST",
-    "age": 22,
-    "sex": "MALE",
-    "url": "https://www.youtube.com/watch?v=ESRYFfaA19Y&list=RDESRYFfaA19Y&start_radio=1"
+    "url": "https://www.youtube.com/watch?v=t6-mczC13CY"
   }
 ]
