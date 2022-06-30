@@ -13,7 +13,7 @@ public enum University {
     POSTECH("포스텍"),
     GIST("지스트"),
     SKKU("성균관대"),
-    SOOKMYONG("숙명여대"),
+    SOOKMYUNG("숙명여대"),
     KOREA("고려대");
 
     private final String korName;

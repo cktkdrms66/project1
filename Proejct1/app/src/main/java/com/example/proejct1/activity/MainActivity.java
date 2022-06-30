@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout layout;
     private ViewPager2 viewPager2;
     private FragmentAdapter adapter;
+    private int one;
 
     private Fragment1 fragment1;
     private Fragment2 fragment2;
