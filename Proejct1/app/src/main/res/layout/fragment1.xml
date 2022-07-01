@@ -23,7 +23,7 @@
         android:layout_margin="10dp"
         android:backgroundTint="#2196F3"
         android:clickable="true"
-        android:tint="#FFFFFF"
+        app:tint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#FFFFFF"

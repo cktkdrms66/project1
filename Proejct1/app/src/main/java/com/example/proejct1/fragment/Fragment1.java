@@ -62,7 +62,6 @@ public class Fragment1 extends Fragment {
     }
 
 
-
     public void setContacts(List<Contact> contacts) {
         adapter.setItems(contacts);
         adapter.notifyDataSetChanged();
@@ -77,8 +76,5 @@ public class Fragment1 extends Fragment {
 
         recyclerView.setAdapter(adapter);
     }
-
-
-
 
 }

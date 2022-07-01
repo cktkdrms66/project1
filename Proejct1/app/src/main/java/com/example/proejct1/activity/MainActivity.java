@@ -4,9 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -25,6 +27,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.proejct1.R;
+import com.example.proejct1.contact.ContactAdapter;
 import com.example.proejct1.fragment.Fragment1;
 import com.example.proejct1.fragment.Fragment2;
 import com.example.proejct1.fragment.Fragment3;
@@ -55,13 +58,18 @@ public class MainActivity extends AppCompatActivity {
     private Fragment2 fragment2;
     private Fragment3 fragment3;
 
-    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    public static Context context;
+
+    public static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    public static final int PERMISSIONS_REQUEST_CALL_PHONE = 200;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        context = this;
 
         findViewByIds();
         setTab();
@@ -143,6 +151,11 @@ public class MainActivity extends AppCompatActivity {
                 setContactData();
             } else {
                 Toast.makeText(this, "권한을 허용해주세요", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == PERMISSIONS_REQUEST_CALL_PHONE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                ContactAdapter.callTarget();
             }
         }
     }
