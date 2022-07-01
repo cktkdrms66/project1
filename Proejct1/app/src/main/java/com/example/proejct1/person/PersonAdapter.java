@@ -10,10 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.proejct1.R;
+import com.example.proejct1.activity.GameActivity;
+import com.example.proejct1.activity.MainActivity;
+import com.example.proejct1.fragment.Fragment3;
 import com.example.proejct1.model.Contact;
 import com.example.proejct1.model.Person;
 import com.example.proejct1.model.University;
@@ -63,7 +67,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                     Intent urlintent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
                     context.startActivity(urlintent);
                 } else {
-                    System.out.println("qweqweqweqw");
+                    Intent intent = new Intent(context, GameActivity.class);
+                    context.startActivity(intent);
                 }
 
             }
