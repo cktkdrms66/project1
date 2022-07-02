@@ -196,11 +196,14 @@ public class GameActivity extends AppCompatActivity {
                 if (isHaveBall) {
                     countDown_tv.setText("정답입니다.");
                     score_tv += 20;
+                    Util.saveData(this, "score", score_tv);
                     scoreTxt.setText(String.valueOf(score_tv));
+
                     yabwiSpeedUP();
                 } else {
                     countDown_tv.setText("틀렸습니다.");
                     score_tv -= 20;
+                    Util.saveData(this, "score", score_tv);
                     scoreTxt.setText(String.valueOf(score_tv));
                     yabwiSpeedDown();
                 }

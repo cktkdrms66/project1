@@ -23,7 +23,6 @@ public class GameActivity2 extends AppCompatActivity {
 
     private ImageView targetImg;
     private TextView scoreTxt;
-    private Button bragBtn;
     private Button clickBtn;
 
     private int score = 0;
@@ -54,7 +53,6 @@ public class GameActivity2 extends AppCompatActivity {
     private void findViewByIds() {
         targetImg = findViewById(R.id.target_image);
         scoreTxt = findViewById(R.id.score);
-        bragBtn = findViewById(R.id.brag_btn);
         clickBtn = findViewById(R.id.click_btn);
     }
 
@@ -90,12 +88,6 @@ public class GameActivity2 extends AppCompatActivity {
             }
         });
 
-        bragBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     private void startTimer() {
