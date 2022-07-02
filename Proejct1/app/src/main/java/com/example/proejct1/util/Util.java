@@ -1,6 +1,8 @@
 package com.example.proejct1.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.proejct1.R;
 import com.example.proejct1.model.Sex;
@@ -10,7 +12,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class util {
+public class Util {
+
+    public static SharedPreferences pref;
+
     public static String getStrWithHashTag(String value) {
         return "#" + value + " ";
     }
@@ -48,5 +53,33 @@ public class util {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public static void saveData(Activity activity, String key, String value) {
+        if (pref == null) {
+            pref = activity.getPreferences(Activity.MODE_PRIVATE);
+        }
+        pref.edit().putString(key, value).commit();
+    }
+
+    public static void saveData(Activity activity, String key, int value) {
+        if (pref == null) {
+            pref = activity.getPreferences(Activity.MODE_PRIVATE);
+        }
+        pref.edit().putInt(key, value).commit();
+    }
+
+    public static String getData(Activity activity, String key, String defaultValue) {
+        if (pref == null) {
+            pref = activity.getPreferences(Activity.MODE_PRIVATE);
+        }
+        return pref.getString(key, defaultValue);
+    }
+
+    public static int getData(Activity activity, String key, int defaultValue) {
+        if (pref == null) {
+            pref = activity.getPreferences(Activity.MODE_PRIVATE);
+        }
+        return pref.getInt(key, defaultValue);
     }
 }

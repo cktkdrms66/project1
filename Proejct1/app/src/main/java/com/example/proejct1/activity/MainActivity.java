@@ -2,30 +2,16 @@ package com.example.proejct1.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.ActivityResultRegistry;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.proejct1.R;
@@ -36,15 +22,10 @@ import com.example.proejct1.fragment.Fragment3;
 import com.example.proejct1.fragment.FragmentAdapter;
 import com.example.proejct1.model.Contact;
 import com.example.proejct1.model.Person;
-import com.example.proejct1.model.Sex;
-import com.example.proejct1.model.University;
-import com.example.proejct1.util.util;
+import com.example.proejct1.util.Util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.tabs.TabLayout;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     public static final int PERMISSIONS_REQUEST_CALL_PHONE = 200;
+
 
 
     @Override
@@ -185,17 +167,23 @@ public class MainActivity extends AppCompatActivity {
                     .getString(c
                             .getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
+
             contacts.add(new Contact(name, number));
 
         }
         c.close();
+
+        for (int i =0 ; i< 100; i++) {
+            contacts.add(new Contact("q" + i, "" + i));
+        }
+
 
         fragment1.setContacts(contacts);
 
     }
 
     public void setPersonData() {
-        String personsTxt = util.readRawTxt(this, R.raw.persons);
+        String personsTxt = Util.readRawTxt(this, R.raw.persons);
 
         ObjectMapper mapper = new ObjectMapper();
 

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proejct1.R;
+import com.example.proejct1.util.Util;
 
 import java.util.Random;
 import java.util.Timer;
@@ -30,18 +31,12 @@ public class GameActivity2 extends AppCompatActivity {
 
     private Timer timer;
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game2);
 
-        pref = getPreferences(Activity.MODE_PRIVATE);
-        editor = pref.edit();
-
-        score = pref.getInt("score", 0);
+        score = Util.getData(this, "score", 0);
 
         findViewByIds();
         setBtns();
@@ -75,8 +70,7 @@ public class GameActivity2 extends AppCompatActivity {
                 }
 
                 scoreTxt.setText(String.valueOf(score));
-                editor.putInt("score", score);
-                editor.commit();
+                Util.saveData(GameActivity2.this, "score", score);
             }
         });
 
@@ -91,8 +85,8 @@ public class GameActivity2 extends AppCompatActivity {
                 }
 
                 scoreTxt.setText(String.valueOf(score));
-                editor.putInt("score", score);
-                editor.commit();
+                Util.saveData(GameActivity2.this, "score", score);
+
             }
         });
 

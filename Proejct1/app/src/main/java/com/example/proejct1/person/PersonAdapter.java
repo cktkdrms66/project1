@@ -1,6 +1,6 @@
 package com.example.proejct1.person;
 
-import static com.example.proejct1.util.util.getStrWithHashTag;
+import static com.example.proejct1.util.Util.getStrWithHashTag;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,18 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.proejct1.R;
 import com.example.proejct1.activity.GameActivity;
-import com.example.proejct1.activity.GameActivity2;
-import com.example.proejct1.activity.MainActivity;
-import com.example.proejct1.fragment.Fragment3;
-import com.example.proejct1.model.Contact;
 import com.example.proejct1.model.Person;
-import com.example.proejct1.model.University;
 
 import java.util.ArrayList;
 import java.util.List;
