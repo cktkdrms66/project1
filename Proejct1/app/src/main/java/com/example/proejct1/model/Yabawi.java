@@ -5,14 +5,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 public class Yabawi {
+    public boolean isHaveBall = false;
     OnYabawiClickListener onYabawiClickListener;
     FrameLayout yabawi_frameLayout;
     ImageView ball_iv;
     ImageView cup_iv;
 
-    boolean isHaveBall = false;
-
-    interface OnYabawiClickListener{
+    public interface OnYabawiClickListener{
         void onClick(Yabawi yabawi);
     }
 
@@ -48,7 +47,7 @@ public class Yabawi {
 
     public void closeYabawicup(){
         cup_iv.setVisibility(View.VISIBLE);
-        ball_iv.setVisibility(View.INVISIBLE);
+        ball_iv.setVisibility(View.VISIBLE);
     }
 
 }
