@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.proejct1.R;
 import com.example.proejct1.activity.GameActivity;
+import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.model.Person;
 
 import java.util.ArrayList;

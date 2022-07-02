@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -26,6 +29,9 @@ import com.example.proejct1.util.Util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.tabs.TabLayout;
+import com.kakao.sdk.common.KakaoSdk;
+import com.kakao.sdk.template.model.Link;
+import com.kakao.sdk.template.model.TextTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private Fragment1 fragment1;
     private Fragment2 fragment2;
     private Fragment3 fragment3;
+    private TextView globalScoreTxt;
+
+    private ImageView bragImage;
 
     public static Context context;
 
@@ -53,12 +62,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        KakaoSdk.init(this, "40d70cd10ff6eb2b1dca1f85ccb64b82");
+
+
         context = this;
 
         findViewByIds();
         setTab();
 
+
         setPersonData();
+
+        setGlobalScore(Util.getData(this, "score", 0));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setGlobalScore(Util.getData(this, "score", 0));
+
     }
 
     @Override
@@ -70,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
     private void findViewByIds() {
         layout = findViewById(R.id.tablayout);
         viewPager2 = findViewById(R.id.viewpager);
-
+        globalScoreTxt = findViewById(R.id.global_score_txt);
+        bragImage = findViewById(R.id.brag_image);
     }
 
     private void setTab() {
@@ -114,6 +138,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setBragImage() {
+        bragImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextTemplate textTemplate = new TextTemplate("qwe",
+                        new Link("https://naver.com", "qweqwe"));
+
+                
+            }
+        });
+    }
     public void callContactPermission() {
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
@@ -173,10 +208,6 @@ public class MainActivity extends AppCompatActivity {
         }
         c.close();
 
-        for (int i =0 ; i< 100; i++) {
-            contacts.add(new Contact("q" + i, "" + i));
-        }
-
 
         fragment1.setContacts(contacts);
 
@@ -195,6 +226,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    public void setGlobalScore(int score) {
+        globalScoreTxt.setText(String.valueOf(score));
     }
 
 }

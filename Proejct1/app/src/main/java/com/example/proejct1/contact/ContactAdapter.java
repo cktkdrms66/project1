@@ -198,9 +198,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             ddabondBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int score = Util.getData((Activity) context, "score", 0) + 10;
                     Util.saveData((Activity) context, "score",
-                            Util.getData((Activity) context, "score", 0) + 10);
+                            score);
                     ddabondBtn.setVisibility(View.GONE);
+                    ((MainActivity) MainActivity.context).setGlobalScore(score);
                 }
             });
         }
