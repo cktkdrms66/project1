@@ -1,6 +1,7 @@
 package com.example.proejct1.contact;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -41,7 +43,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ContactViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Contact item = contacts.get(position);
         holder.nameText.setText(item.getName());
         holder.numberText.setText(item.getNumber());
@@ -49,14 +51,31 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactViewHolder> {
         holder.background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println(holder.expandLayout.getLayoutParams().height);
+
+                if (holder.expandLayout.getLayoutParams().height == 0) {
+                    holder.expandLayout.setLayoutParams(
+                            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT));
+                } else {
+                    holder.expandLayout.setLayoutParams(
+                            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                    0));
+                }
+            }
+        });
+
+        holder.callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 targetNumber = contacts.get(position).getNumber();
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission(view.getContext(), Manifest.permission.CALL_PHONE)
-                    != PackageManager.PERMISSION_GRANTED) {
+                            != PackageManager.PERMISSION_GRANTED) {
 
                         ActivityCompat.requestPermissions((Activity) MainActivity.context, new String[]{Manifest.permission.CALL_PHONE}
-                        ,MainActivity.PERMISSIONS_REQUEST_CALL_PHONE);
+                                ,MainActivity.PERMISSIONS_REQUEST_CALL_PHONE);
                     } else {
                         callTarget();
                     }

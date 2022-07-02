@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.proejct1.R;
 import com.example.proejct1.activity.GameActivity;
+import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.fragment.Fragment3;
 import com.example.proejct1.model.Contact;
@@ -67,7 +68,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                     Intent urlintent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
                     context.startActivity(urlintent);
                 } else {
-                    Intent intent = new Intent(context, GameActivity.class);
+                    Intent intent = new Intent(context, GameActivity2.class);
                     context.startActivity(intent);
                 }
 

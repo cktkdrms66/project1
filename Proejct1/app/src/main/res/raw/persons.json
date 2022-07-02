@@ -23,5 +23,13 @@
     "age": 23,
     "sex": "FEMALE",
     "url": "https://www.youtube.com/watch?v=t6-mczC13CY"
+  },
+  {
+    "name": "우다연",
+    "img": "https://t1.daumcdn.net/cfile/tistory/99D0E7495D539DC619",
+    "university": "SKKU",
+    "age": 23,
+    "sex": "FEMALE",
+    "url": "https://youtu.be/JvxXIR0l7rc"
   }
 ]

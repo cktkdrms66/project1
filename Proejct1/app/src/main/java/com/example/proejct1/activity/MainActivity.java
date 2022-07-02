@@ -12,7 +12,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
@@ -75,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
         setTab();
 
         setPersonData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        context = null;
+        super.onDestroy();
     }
 
     private void findViewByIds() {
