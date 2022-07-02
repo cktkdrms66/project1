@@ -68,7 +68,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                     Intent urlintent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
                     context.startActivity(urlintent);
                 } else {
-                    Intent intent = new Intent(context, GameActivity2.class);
+                    Intent intent = new Intent(context, GameActivity.class);
                     context.startActivity(intent);
                 }
 
