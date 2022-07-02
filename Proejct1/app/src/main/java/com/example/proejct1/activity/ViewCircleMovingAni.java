@@ -39,6 +39,7 @@ public class ViewCircleMovingAni {
         this.toYPosition = toYPosition;
         this.duration = duration;
         this.reverse = reverse;
+        isPlaying = true;
         viewCircleMovingThread = new ViewCircleMovingThread();
         viewCircleMovingThread.start();
     }
@@ -71,7 +72,7 @@ public class ViewCircleMovingAni {
             isFinish = false;
             while (true) {
                 if (xPosition >= toXPosition - 5 / duration && xPosition <= toXPosition + 5 / duration
-                        && yPosition >= toYPosition - 5 / duration && xPosition <= toXPosition + 5 / duration) {
+                        && yPosition >= toYPosition - 5 / duration && yPosition <= toYPosition + 5 / duration) {
                     xPosition = toXPosition;
                     yPosition = toYPosition;
                     isFinish = true;
@@ -116,12 +117,17 @@ public class ViewCircleMovingAni {
             view.setX(xPosition);
             view.setY(yPosition);
             if (isFinish) {
+                isPlaying = false;
                 listener.onFinish(fromXPosition,fromYPosition,toXPosition,toYPosition);
             }
 
 
         }
 
+    }
+
+    public boolean isPlaying(){
+        return isPlaying;
     }
 
 
