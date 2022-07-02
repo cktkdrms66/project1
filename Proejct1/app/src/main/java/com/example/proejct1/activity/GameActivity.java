@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proejct1.R;
 import com.example.proejct1.model.Yabawi;
+import com.example.proejct1.util.Util;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -31,6 +32,8 @@ public class GameActivity extends AppCompatActivity {
     ViewCircleMovingAni viewCircleMovingAni1 = new ViewCircleMovingAni();
     ViewCircleMovingAni viewCircleMovingAni2 = new ViewCircleMovingAni();
     ArrayList<Yabawi> yabawiArrayList = new ArrayList<>();
+    int score_tv;
+    TextView scoreTxt;
 
     int playIndex = 5;
     int playCount = 0;
@@ -48,11 +51,15 @@ public class GameActivity extends AppCompatActivity {
         yabawi13 = new Yabawi(findViewById(R.id.yabawi13_frameLayout), findViewById(R.id.ball3), findViewById(R.id.cup3));
         start_btn = findViewById(R.id.start_btn);
         countDown_tv = findViewById(R.id.countDown_tv);
+        scoreTxt = findViewById(R.id.score_tv);
 
 
         yabawiArrayList.add(yabawi11);
         yabawiArrayList.add(yabawi12);
         yabawiArrayList.add(yabawi13);
+
+        score_tv = Util.getData(this, "score", 0);
+        scoreTxt.setText(String.valueOf(score_tv));
 
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,9 +195,13 @@ public class GameActivity extends AppCompatActivity {
                 countDown_tv.setVisibility(View.VISIBLE);
                 if (isHaveBall) {
                     countDown_tv.setText("정답입니다.");
+                    score_tv += 20;
+                    scoreTxt.setText(String.valueOf(score_tv));
                     yabwiSpeedUP();
                 } else {
                     countDown_tv.setText("틀렸습니다.");
+                    score_tv -= 20;
+                    scoreTxt.setText(String.valueOf(score_tv));
                     yabwiSpeedDown();
                 }
             }
@@ -198,10 +209,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void yabwiSpeedUP(){
-       duration -= 0.5;
+       duration -= 0.1;
     }
     private void yabwiSpeedDown(){
-       duration +=0.5;
+       duration +=0.1;
     }
 
 
