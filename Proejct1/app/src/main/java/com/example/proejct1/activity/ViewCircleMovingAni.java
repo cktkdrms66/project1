@@ -117,7 +117,10 @@ public class ViewCircleMovingAni {
             view.setX(xPosition);
             view.setY(yPosition);
             if (isFinish) {
+
                 isPlaying = false;
+                view.setX(fromXPosition);
+                view.setY(fromYPosition);
                 listener.onFinish(fromXPosition,fromYPosition,toXPosition,toYPosition);
             }
 

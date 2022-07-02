@@ -1,9 +1,11 @@
 package com.example.proejct1.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proejct1.activity.GameActivity;
+import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.R;
 import com.example.proejct1.model.Person;
@@ -27,6 +31,8 @@ public class Fragment3 extends Fragment {
     private PersonAdapter adapter = new PersonAdapter();
     private FloatingActionButton floatingActionButton;
     private ImageView noImage;
+    Button button1;
+    Button button2;
 
     @Nullable
     @Override
@@ -38,6 +44,25 @@ public class Fragment3 extends Fragment {
         setFloatingActionButton();
         setRecyclerView();
 
+        button1 = v.findViewById(R.id.button1);
+        button2 = v.findViewById(R.id.button2);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), GameActivity2.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
         return v;
     }
 
@@ -45,6 +70,7 @@ public class Fragment3 extends Fragment {
         recyclerView = v.findViewById(R.id.person_recyclerview);
         floatingActionButton = v.findViewById(R.id.float_btn2);
         noImage = v.findViewById(R.id.no_image2);
+
     }
 
     private void setFloatingActionButton() {
