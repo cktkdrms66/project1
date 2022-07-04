@@ -72,6 +72,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
             txt = getStrWithHashTag(item.getName()) + getStrWithHashTag(item.getUniversity())
                     + getStrWithHashTag(item.getSex())
                     + getStrWithHashTag(item.getAge());
+        } else {
+            holder.pic.setVisibility(View.VISIBLE);
         }
 
         holder.personText.setText(txt);
