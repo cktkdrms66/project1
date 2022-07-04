@@ -97,7 +97,23 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int score = Util.getData((Activity) MainActivity.context, "score", 0) - 10 + new Random().nextInt(20);
+                    int value = new Random().nextInt(100);
+                    int originalScore = Util.getData((Activity) MainActivity.context, "score", 0);
+                    int score = 0;
+                    if (value < 2) {
+                        score = 0;
+                    } else if (value < 20) {
+                        score = originalScore + 5;
+                    } else if (value < 50) {
+                        score = originalScore - 8;
+                    } else if (value < 80) {
+                        score = originalScore + 10;
+                    } else if (value < 98) {
+                        score = originalScore - 10;
+                    } else {
+                        score = originalScore + 100;
+                    }
+
                     Util.saveData((Activity) MainActivity.context, "score",
                             score);
                     ((MainActivity) MainActivity.context).setGlobalScore(score);
