@@ -1,5 +1,6 @@
 package com.example.proejct1.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.R;
 import com.example.proejct1.model.Person;
 import com.example.proejct1.person.PersonAdapter;
+import com.example.proejct1.util.Util;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class Fragment3 extends Fragment {
     private PersonAdapter adapter = new PersonAdapter();
     Button button1;
     Button button2;
+
 
     @Nullable
     @Override
@@ -45,6 +48,7 @@ public class Fragment3 extends Fragment {
 
         button1 = v.findViewById(R.id.button1);
         button2 = v.findViewById(R.id.button2);
+
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,7 @@ public class Fragment3 extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
 
         return v;
     }

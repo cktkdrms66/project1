@@ -173,20 +173,20 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage("삭제하시겠습니까?")
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                checkedIdx = -1;
-                                contacts.remove(getAdapterPosition());
-                                notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    checkedIdx = -1;
+                                    contacts.remove(getAdapterPosition());
+                                    notifyDataSetChanged();
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
+                                }
+                            });
 
                     AlertDialog alertDialog = builder.create();
 
