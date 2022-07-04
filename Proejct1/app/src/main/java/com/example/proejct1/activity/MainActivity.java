@@ -2,6 +2,7 @@ package com.example.proejct1.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView bragImage;
 
+
     public static Context context;
 
     public static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -84,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         setBragImage();
 
 
+
+
         setPersonData();
 
         setGlobalScore(Util.getData(this, "score", 0));
@@ -92,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         setGlobalScore(Util.getData(this, "score", 0));
 
     }
@@ -109,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
         globalScoreTxt = findViewById(R.id.global_score_txt);
         bragImage = findViewById(R.id.brag_image);
     }
+
+
 
     private void setTab() {
         adapter = new FragmentAdapter(getSupportFragmentManager(), getLifecycle());
@@ -288,3 +293,4 @@ public class MainActivity extends AppCompatActivity {
         globalScoreTxt.setText(String.valueOf(score));
     }
 }
+

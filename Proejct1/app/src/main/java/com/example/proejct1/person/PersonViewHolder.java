@@ -14,11 +14,13 @@ public class PersonViewHolder extends RecyclerView.ViewHolder {
 
     ImageView personImg;
     TextView personText;
+    ImageView pic;
 
 
     PersonViewHolder(Context context, View itemView) {
         super(itemView);
         personImg = itemView.findViewById(R.id.person_img);
         personText = itemView.findViewById(R.id.person_info_txt);
+        pic = itemView.findViewById(R.id.pic);
     }
 }
