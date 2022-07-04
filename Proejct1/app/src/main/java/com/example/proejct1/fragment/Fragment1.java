@@ -1,5 +1,7 @@
 package com.example.proejct1.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proejct1.R;
+import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.contact.ContactAdapter;
 import com.example.proejct1.model.Contact;

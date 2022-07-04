@@ -3,8 +3,10 @@ package com.example.proejct1.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -30,10 +32,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.tabs.TabLayout;
 import com.kakao.sdk.common.KakaoSdk;
+import com.kakao.sdk.common.util.KakaoCustomTabsClient;
+import com.kakao.sdk.share.ShareClient;
+import com.kakao.sdk.share.WebSharerClient;
+import com.kakao.sdk.template.model.Content;
+import com.kakao.sdk.template.model.FeedTemplate;
+import com.kakao.sdk.template.model.ItemContent;
+import com.kakao.sdk.template.model.ItemInfo;
 import com.kakao.sdk.template.model.Link;
+import com.kakao.sdk.template.model.Social;
 import com.kakao.sdk.template.model.TextTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int PERMISSIONS_REQUEST_CALL_PHONE = 200;
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         findViewByIds();
         setTab();
+
+        setBragImage();
 
 
         setPersonData();
@@ -136,19 +148,42 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void setBragImage() {
         bragImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextTemplate textTemplate = new TextTemplate("qwe",
-                        new Link("https://naver.com", "qweqwe"));
+                FeedTemplate feedTemplate = new FeedTemplate(
+                        new Content("제 점수는 " + Util.getData(MainActivity.this, "score", 0) + "입니다 ^^",
+                                "https://postfiles.pstatic.net/MjAyMjA3MDRfMjU0/MDAxNjU2OTA3NjEyNjc4.7YdxLeFrn2iu3tWWEYmSrh1SHb3SyXkRAudojlR64W0g.C58TG-LzYamqGp87TdSHi91mIfY9zL5rky72Z_msNkYg.PNG.kln753/KakaoTalk_Image_2022-06-30-16-38-07.png?type=w966",
+                                new Link("kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink",
+                                        "kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink")
+                        ),
+                        new ItemContent(),
+                        new Social(),
+                        Arrays.asList(new com.kakao.sdk.template.model.Button("앱으로 보기", new Link("kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink", "kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink")))
+                );
 
-                
+                if (ShareClient.getInstance().isKakaoTalkSharingAvailable(context)) {
+                    ShareClient.getInstance().shareDefault(context, feedTemplate, (sharingResult, throwable) -> {
+                        startActivity(sharingResult.getIntent());
+                        return null;
+                    });
+                } else {
+                    try {
+                        KakaoCustomTabsClient.INSTANCE.openWithDefault(context, WebSharerClient.getInstance().makeDefaultUrl(feedTemplate));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         });
     }
+
     public void callContactPermission() {
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
@@ -219,7 +254,8 @@ public class MainActivity extends AppCompatActivity {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            List<Person> persons = mapper.readValue(personsTxt, new TypeReference<List<Person>>(){});
+            List<Person> persons = mapper.readValue(personsTxt, new TypeReference<List<Person>>() {
+            });
             fragment3.setPersons(persons);
 
         } catch (Exception e) {
@@ -231,5 +267,4 @@ public class MainActivity extends AppCompatActivity {
     public void setGlobalScore(int score) {
         globalScoreTxt.setText(String.valueOf(score));
     }
-
 }

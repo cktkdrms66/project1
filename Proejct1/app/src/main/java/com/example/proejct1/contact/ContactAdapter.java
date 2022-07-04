@@ -202,6 +202,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                     Util.saveData((Activity) context, "score",
                             score);
                     ddabondBtn.setVisibility(View.GONE);
+                    ddabongs.set(getAdapterPosition(), false);
                     ((MainActivity) MainActivity.context).setGlobalScore(score);
                 }
             });
