@@ -122,11 +122,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                 if (!item.getUrl().isEmpty()) {
                     Intent urlintent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getUrl()));
                     context.startActivity(urlintent);
-                } else {
-                    Intent intent = new Intent(context, GameActivity.class);
-                    context.startActivity(intent);
                 }
-
             }
         });
     }
