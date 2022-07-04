@@ -1,5 +1,6 @@
 package com.example.proejct1.img;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proejct1.R;
+import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.fragment.Fragment2;
 import com.example.proejct1.model.Img_Data;
+import com.example.proejct1.util.Util;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.CustomViewHolder> {
 
@@ -43,14 +47,9 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
 
         holder.itemView.setTag(position);
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
 
-                remove(holder.getAdapterPosition());
-                return true;
-            }
-        });
+
+
     }
 
     @Override
@@ -85,6 +84,27 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.img1 = (ImageView) itemView.findViewById(R.id.img1);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    remove(getAdapterPosition());
+                    return true;
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int score = Util.getData((Activity) MainActivity.context, "score", 0) - 10 + new Random().nextInt(20);
+                    Util.saveData((Activity) MainActivity.context, "score",
+                            score);
+                    ((MainActivity) MainActivity.context).setGlobalScore(score);
+                    remove(getAdapterPosition());
+                }
+            });
+
         }
     }
 }

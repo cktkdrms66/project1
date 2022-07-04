@@ -78,7 +78,8 @@ public class GameActivity2 extends AppCompatActivity {
                 if (isOk) {
                     score++;
                 } else {
-                    score = 0;
+                    score -= 20;
+                    if (score < 0) score = 0;
                     Toast.makeText(view.getContext(), "(훌쩍...)", Toast.LENGTH_SHORT).show();
                 }
 
