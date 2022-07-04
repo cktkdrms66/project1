@@ -46,6 +46,7 @@ import com.kakao.sdk.template.model.TextTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -156,8 +157,27 @@ public class MainActivity extends AppCompatActivity {
         bragImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int score = Util.getData(MainActivity.this, "score", 0);
+                String text;
+                Random random = new Random();
+                int value = random.nextInt(100);
+
+                if (value < 10) {
+                    text = "제 점수는 " + score + "입니다 부끄부끄...!!";
+                } else if (value < 20) {
+                    text = "제 점수는 무려 " + score + "입니다 ^~^";
+                } else if (value < 40) {
+                    text = "제 점수는 " + score + "입니다 ^^ 따라와보세요;;;;!!!! ^^";
+                } else if (value < 60) {
+                    text = "제 점수는 무려 '" + score + "' 입니다 (굿)";
+                } else if (value < 80) {
+                    text = "'" + score + "'. :)";
+                } else {
+                    text = "난 " + score + "점이다. (굿)(굿)(굿)(굿)(굿)(굿)(굿)";
+                }
+
                 FeedTemplate feedTemplate = new FeedTemplate(
-                        new Content("제 점수는 " + Util.getData(MainActivity.this, "score", 0) + "입니다 ^^",
+                        new Content(text,
                                 "https://postfiles.pstatic.net/MjAyMjA3MDRfMjU0/MDAxNjU2OTA3NjEyNjc4.7YdxLeFrn2iu3tWWEYmSrh1SHb3SyXkRAudojlR64W0g.C58TG-LzYamqGp87TdSHi91mIfY9zL5rky72Z_msNkYg.PNG.kln753/KakaoTalk_Image_2022-06-30-16-38-07.png?type=w966",
                                 new Link("kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink",
                                         "kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink")
