@@ -24,9 +24,11 @@ public class GameActivity2 extends AppCompatActivity {
     private ImageView targetImg;
     private TextView scoreTxt;
     private Button clickBtn;
+    private Toast toast;
 
     private int score = 0;
     private boolean isOk = true;
+    private long sendTime = 0;
 
     private Timer timer;
 
@@ -80,7 +82,17 @@ public class GameActivity2 extends AppCompatActivity {
                 } else {
                     score -= 20;
                     if (score < 0) score = 0;
-                    Toast.makeText(view.getContext(), "(훌쩍...)", Toast.LENGTH_SHORT).show();
+
+                    if (System.currentTimeMillis() > sendTime + 2000) {
+                        sendTime = System.currentTimeMillis();
+                        if (toast != null) {
+                            toast.cancel();
+                        }
+
+                        toast = Toast.makeText(view.getContext(), "(훌쩍...)", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
                 }
 
                 scoreTxt.setText(String.valueOf(score));

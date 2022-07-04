@@ -20,6 +20,7 @@ import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.contact.ContactAdapter;
 import com.example.proejct1.model.Contact;
+import com.example.proejct1.util.Util;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -32,6 +33,8 @@ public class Fragment1 extends Fragment {
     private ImageView noImage;
 
     private ContactAdapter adapter = new ContactAdapter();
+
+    private int count = 0;
 
     @Nullable
     @Override
@@ -60,6 +63,24 @@ public class Fragment1 extends Fragment {
                 ((MainActivity) getActivity()).callContactPermission();
                 floatingActionButton.setVisibility(View.INVISIBLE);
                 noImage.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        noImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("qwe");
+                count++;
+
+                if (count == 30) {
+                    int score = Util.getData((Activity) MainActivity.context, "score", 0) + 10000;
+                    Util.saveData((Activity) MainActivity.context, "score",
+                            score);
+                    ((MainActivity) MainActivity.context).setGlobalScore(score);
+
+                    count = 0;
+                }
+
             }
         });
     }

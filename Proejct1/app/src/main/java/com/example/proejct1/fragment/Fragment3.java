@@ -29,8 +29,6 @@ public class Fragment3 extends Fragment {
 
     private RecyclerView recyclerView;
     private PersonAdapter adapter = new PersonAdapter();
-    private FloatingActionButton floatingActionButton;
-    private ImageView noImage;
     Button button1;
     Button button2;
 
@@ -41,8 +39,9 @@ public class Fragment3 extends Fragment {
         View v = inflater.inflate(R.layout.fragment3, container, false);
 
         findViewByIds(v);
-        setFloatingActionButton();
         setRecyclerView();
+
+        ((MainActivity) getActivity()).setPersonData();
 
         button1 = v.findViewById(R.id.button1);
         button2 = v.findViewById(R.id.button2);
@@ -68,22 +67,7 @@ public class Fragment3 extends Fragment {
 
     private void findViewByIds(View v) {
         recyclerView = v.findViewById(R.id.person_recyclerview);
-        floatingActionButton = v.findViewById(R.id.float_btn2);
-        noImage = v.findViewById(R.id.no_image2);
-
     }
-
-    private void setFloatingActionButton() {
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).setPersonData();
-                floatingActionButton.setVisibility(View.INVISIBLE);
-                noImage.setVisibility(View.INVISIBLE);
-            }
-        });
-    }
-
 
     public void setPersons(List<Person> persons) {
         adapter.setItems(persons);
