@@ -118,7 +118,7 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
                     LottieAnimationView lottieView = ((LottieAnimationView)dialog.findViewById(R.id.lottieView));
 
 
-                    lottieView.setMinAndMaxFrame(0, 13);
+                    lottieView.setMinAndMaxFrame(0, 12);
                     lottieView.playAnimation();
 
 
