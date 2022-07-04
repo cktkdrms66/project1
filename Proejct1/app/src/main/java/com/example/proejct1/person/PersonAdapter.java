@@ -2,7 +2,9 @@ package com.example.proejct1.person;
 
 import static com.example.proejct1.util.Util.getStrWithHashTag;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
 
     private List<Person> persons;
     private Context context;
+    int score;
 
     public PersonAdapter() {
         persons = new ArrayList<>();
@@ -55,6 +58,27 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
 
         Glide.with(this.context).load(item.getImg()).into(holder.personImg);
         holder.personText.setText(txt);
+
+        holder.pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("20점을 사용해 확인하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                holder.pic.setVisibility(View.GONE);
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+            }
+        });
 
         holder.personImg.setOnClickListener(new View.OnClickListener() {
             @Override
