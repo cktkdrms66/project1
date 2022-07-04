@@ -84,12 +84,6 @@ public class MainActivity extends AppCompatActivity {
         setTab();
 
         setBragImage();
-
-
-
-
-        setPersonData();
-
         setGlobalScore(Util.getData(this, "score", 0));
     }
 
@@ -268,26 +262,10 @@ public class MainActivity extends AppCompatActivity {
         }
         c.close();
 
-
         fragment1.setContacts(contacts);
-
     }
 
-    public void setPersonData() {
-        String personsTxt = Util.readRawTxt(this, R.raw.persons);
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            List<Person> persons = mapper.readValue(personsTxt, new TypeReference<List<Person>>() {
-            });
-            fragment3.setPersons(persons);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void setGlobalScore(int score) {
         globalScoreTxt.setText(String.valueOf(score));
