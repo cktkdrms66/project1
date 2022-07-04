@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,16 @@ import com.example.proejct1.R;
 import com.example.proejct1.activity.GameActivity;
 import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.activity.MainActivity;
+import com.example.proejct1.activity.PersonListActivity;
 import com.example.proejct1.model.Person;
 import com.example.proejct1.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
 
@@ -50,8 +56,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
         }
 
 
-
-
         return new PersonViewHolder(context, view);
     }
 
@@ -59,17 +63,18 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
         Person item = persons.get(position);
 
-        String txt = getStrWithHashTag(item.getName())
-                + getStrWithHashTag(item.getUniversity())
-                + getStrWithHashTag(item.getSex())
-                + getStrWithHashTag(item.getAge());
+        String txt = getStrWithHashTag(item.getName());
 
         Glide.with(this.context).load(item.getImg()).into(holder.personImg);
-        holder.personText.setText(txt);
 
         if (Util.getData((Activity) context, "user" + holder.getAdapterPosition(), 0) == 1) {
             holder.pic.setVisibility(View.GONE);
+            txt = getStrWithHashTag(item.getName()) + getStrWithHashTag(item.getUniversity())
+                    + getStrWithHashTag(item.getSex())
+                    + getStrWithHashTag(item.getAge());
         }
+
+        holder.personText.setText(txt);
 
         holder.pic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +86,28 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (score >= 20) {
+                                    KonfettiView konfettiView = ((PersonListActivity) PersonListActivity.context).konfettiView;
+                                    konfettiView.build()
+                                            .addColors(Color.BLUE, Color.CYAN, Color.MAGENTA)
+                                            .setDirection(0.0, 359.0)
+                                            .setSpeed(1f, 13f)
+                                            .setFadeOutEnabled(true)
+                                            .setTimeToLive(1000L)
+                                            .addShapes(Shape.RECT, Shape.CIRCLE)
+                                            .addSizes(new Size(12, 5))
+                                            .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                                            .streamFor(300, 2000L);
+
                                     score -= 20;
                                     Util.saveData((Activity) context, "score", score);
                                     ((MainActivity) MainActivity.context).setGlobalScore(score);
-                                holder.pic.setVisibility(View.GONE);
-                                Util.saveData((Activity) context, "user" + holder.getAdapterPosition(), 1);
+                                    ((PersonListActivity) PersonListActivity.context).setGlobalScore(score);
+                                    holder.pic.setVisibility(View.GONE);
+                                    String txt = getStrWithHashTag(item.getName()) + getStrWithHashTag(item.getUniversity())
+                                            + getStrWithHashTag(item.getSex())
+                                            + getStrWithHashTag(item.getAge());
+                                    holder.personText.setText(txt);
+                                    Util.saveData((Activity) context, "user" + holder.getAdapterPosition(), 1);
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setMessage("점수가 부족합니다")
@@ -113,7 +135,6 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
             }
 
         });
-
 
 
         holder.personImg.setOnClickListener(new View.OnClickListener() {

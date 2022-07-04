@@ -118,7 +118,7 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
                     LottieAnimationView lottieView = ((LottieAnimationView)dialog.findViewById(R.id.lottieView));
 
 
-                    lottieView.setMinAndMaxFrame(0, 13);
+                    lottieView.setMinAndMaxFrame(0, 12);
                     lottieView.playAnimation();
 
 
@@ -161,6 +161,7 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
 
                             Util.saveData((Activity) MainActivity.context, "score",
                                     originalScore - 20);
+                            ((MainActivity) MainActivity.context).setGlobalScore(originalScore - 20);
 
                             int value = new Random().nextInt(100);
 
@@ -183,7 +184,6 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
 
                             Util.saveData((Activity) MainActivity.context, "score",
                                     originalScore + plusScore);
-                            ((MainActivity) MainActivity.context).setGlobalScore(originalScore + plusScore);
 
                             Timer timer = new Timer();
                             int finalPlusScore = plusScore;

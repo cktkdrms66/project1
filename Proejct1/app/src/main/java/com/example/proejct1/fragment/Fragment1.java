@@ -72,7 +72,7 @@ public class Fragment1 extends Fragment {
                 System.out.println("qwe");
                 count++;
 
-                if (count == 30) {
+                if (count == 5) {
                     int score = Util.getData((Activity) MainActivity.context, "score", 0) + 10000;
                     Util.saveData((Activity) MainActivity.context, "score",
                             score);

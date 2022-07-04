@@ -58,6 +58,10 @@
             android:name=".activity.GameActivity2"
             android:exported="true" />
 
+        <activity
+            android:name=".activity.PersonListActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

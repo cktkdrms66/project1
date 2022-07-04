@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.example.proejct1.activity.GameActivity;
 import com.example.proejct1.activity.GameActivity2;
 import com.example.proejct1.activity.MainActivity;
 import com.example.proejct1.R;
+import com.example.proejct1.activity.PersonListActivity;
 import com.example.proejct1.model.Person;
 import com.example.proejct1.person.PersonAdapter;
 import com.example.proejct1.util.Util;
@@ -29,10 +31,10 @@ import java.util.List;
 
 public class Fragment3 extends Fragment {
 
-    private RecyclerView recyclerView;
-    private PersonAdapter adapter = new PersonAdapter();
-    Button button1;
-    Button button2;
+    CardView button1;
+    CardView button2;
+    CardView button3;
+
 
 
     @Nullable
@@ -41,24 +43,12 @@ public class Fragment3 extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment3, container, false);
 
-        findViewByIds(v);
-        setRecyclerView();
-
-        ((MainActivity) getActivity()).setPersonData();
-
-        button1 = v.findViewById(R.id.button1);
-        button2 = v.findViewById(R.id.button2);
+        button1 = v.findViewById(R.id.cardview1);
+        button2 = v.findViewById(R.id.cardview2);
+        button3 = v.findViewById(R.id.cardview3);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GameActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), GameActivity2.class);
@@ -66,28 +56,25 @@ public class Fragment3 extends Fragment {
             }
         });
 
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PersonListActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
 
         return v;
     }
-
-    private void findViewByIds(View v) {
-        recyclerView = v.findViewById(R.id.person_recyclerview);
-    }
-
-    public void setPersons(List<Person> persons) {
-        adapter.setItems(persons);
-        adapter.notifyDataSetChanged();
-
-    }
-
-    private void setRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(), RecyclerView.VERTICAL, false)) ; // 상하 스크롤r
-        adapter.setItems(new ArrayList<Person>());
-        recyclerView.setAdapter(adapter);
-    }
-
-
-
 
 }
 

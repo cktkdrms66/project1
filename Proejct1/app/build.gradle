@@ -51,4 +51,5 @@ dependencies {
     implementation "com.kakao.sdk:v2-share:2.11.0" // 메시지(카카오톡 공유)
 
     implementation 'com.airbnb.android:lottie:3.0.7'
+    implementation 'nl.dionsegijn:konfetti:1.1.2'
 }
