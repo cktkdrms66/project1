@@ -3,7 +3,9 @@
 간단한 2가지 게임을 통해 점수를 획득하고, 그 점수를 기반으로 1분반 학생들의 정보를 알아낼 수 있습니다. <br>심지어 친구들에게 자랑도 할 수 있다고요!
 <br><br><br>
 <img src="https://user-images.githubusercontent.com/43724508/177274457-3648922a-52b0-45a8-bd2e-dabd449cd347.png" width="300">
-
+<br><br>
+## 팀원
+김세훈, 차상근<br><br>
 ## 사용 툴
 * 안드로이드 스튜디오 (Java)
 <br><br>
