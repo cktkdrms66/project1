@@ -50,7 +50,7 @@
 <img src="https://user-images.githubusercontent.com/43724508/177279598-ee82321a-53a1-449c-9e3a-a1407f9abce8.png" width="210">
 </p>
 <br><br><br>
-### 카카오톡 자랑하기
+#### 카카오톡 자랑하기
 점수를 계속 쌓다보면 근질근질하지 않나요...? 당신의 점수를 친구들에게 자랑하세요. <br> 친구들을 도발해 앱 참여도를 높여주세요!
 <br><br>
 <p>
@@ -58,3 +58,7 @@
 <img src="https://user-images.githubusercontent.com/43724508/177280982-21bfcb37-aa43-4ade-ad67-dabb732ddae6.jpeg" width="210">
 </p>
 
+
+## 설치 링크
+아래 링크를 눌러 apk를 다운로드할 수 있습니다!  <br><br>
+https://drive.google.com/file/d/1ON19DNR5jX3u2jnX-KkAerNwoOcxrK6l/view?usp=sharing
