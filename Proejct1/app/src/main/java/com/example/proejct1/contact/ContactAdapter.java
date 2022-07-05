@@ -1,6 +1,7 @@
 package com.example.proejct1.contact;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -36,13 +37,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     private List<Contact> contacts;
     private List<Boolean> ddabongs;
-    public static int checkedIdx;
+    private int checkIdx;
     public static String targetNumber;
 
     public ContactAdapter() {
         contacts = new ArrayList<>();
         ddabongs = new ArrayList<>();
-        checkedIdx = -1;
+        checkIdx = -1;
     }
 
     @NonNull
@@ -66,14 +67,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             holder.ddabondBtn.setVisibility(View.GONE);
         }
 
-        if (checkedIdx == position) {
-            holder.expandLayout.setLayoutParams(
-                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT));
+        if (checkIdx == position) {
+            holder.expandLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150));
         } else {
-            holder.expandLayout.setLayoutParams(
-                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                            0));
+            holder.expandLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
         }
 
     }
@@ -89,13 +86,19 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         ddabongs = new ArrayList<>();
         for (int i = 0; i < contacts.size(); i++) {
             ddabongs.add(false);
+            Util.saveData((Activity) MainActivity.context, "contact" + i, contacts.get(i).getName() + "/" + contacts.get(i).getNumber());
         }
+
+        Util.saveData((Activity) MainActivity.context, "contact_count", contacts.size());
         Random random = new Random();
         for (int i = 0; i < ddabongs.size(); i++) {
             int value = random.nextInt(100);
-            if (value > 50) {
-                ddabongs.set(i, true);
+            if (Util.getData((Activity) MainActivity.context, "contact_ddabong" + i, 0) == 0) {
+                if (value > 50) {
+                    ddabongs.set(i, true);
+                }
             }
+
         }
     }
 
@@ -150,20 +153,19 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             background.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ContactAdapter.checkedIdx = getAdapterPosition();
+                    boolean isExpand = expandLayout.getLayoutParams().height != 0;
 
-                    if (expandLayout.getLayoutParams().height == 0) {
-                        //click
-                        expandLayout.setLayoutParams(
-                                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                    if (checkIdx == getAdapterPosition()) {
+                        checkIdx = -1;
+                        changeVisibility(!isExpand);
                     } else {
+                        if (checkIdx >= 0) {
+                            notifyItemChanged(checkIdx);
+                        }
+                        checkIdx = getAdapterPosition();
 
-                        expandLayout.setLayoutParams(
-                                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                        0));
+                        changeVisibility(!isExpand);
                     }
-                    notifyDataSetChanged();
 
                 }
             });
@@ -176,7 +178,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    checkedIdx = -1;
                                     contacts.remove(getAdapterPosition());
                                     notifyDataSetChanged();
                                 }
@@ -201,11 +202,31 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
                     int score = Util.getData((Activity) context, "score", 0) + 10;
                     Util.saveData((Activity) context, "score",
                             score);
+                    Util.saveData((Activity) context, "contact_ddabong" + getAdapterPosition(), 1);
                     ddabondBtn.setVisibility(View.GONE);
                     ddabongs.set(getAdapterPosition(), false);
                     ((MainActivity) MainActivity.context).setGlobalScore(score);
                 }
             });
+        }
+
+        public void changeVisibility(final boolean isExpanded) {
+            // ValueAnimator.ofInt(int... values)는 View가 변할 값을 지정, 인자는 int 배열
+            ValueAnimator va = isExpanded ? ValueAnimator.ofInt(0, 150) : ValueAnimator.ofInt(150, 0);
+            // Animation이 실행되는 시간, n/1000초
+            va.setDuration(300);
+            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    // imageView의 높이 변경
+                    expandLayout.getLayoutParams().height = (int) animation.getAnimatedValue();
+                    expandLayout.requestLayout();
+                    // imageView가 실제로 사라지게하는 부분
+
+                }
+            });
+            // Animation start
+            va.start();
         }
     }
 }

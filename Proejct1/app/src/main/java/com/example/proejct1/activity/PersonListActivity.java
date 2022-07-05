@@ -27,6 +27,7 @@ public class PersonListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     public TextView scoreTxt;
+    public TextView userCountTxt;
     private PersonAdapter adapter = new PersonAdapter();
 
     public KonfettiView konfettiView;
@@ -44,7 +45,7 @@ public class PersonListActivity extends AppCompatActivity {
         setRecyclerView();
 
         scoreTxt.setText(String.valueOf(Util.getData(this, "score", 0)));
-
+        userCountTxt.setText(Util.getData(this, "user_count", 0) + " / 20");
     }
 
     @Override
@@ -57,6 +58,7 @@ public class PersonListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.person_recyclerview);
         konfettiView = findViewById(R.id.viewKonfetti);
         scoreTxt = findViewById(R.id.global_score_txt2);
+        userCountTxt = findViewById(R.id.user_count_txt);
     }
 
     private void setRecyclerView() {
@@ -83,5 +85,9 @@ public class PersonListActivity extends AppCompatActivity {
 
     public void setGlobalScore(int score) {
         scoreTxt.setText(String.valueOf(score));
+    }
+
+    public void setUserCount(int userCount) {
+        userCountTxt.setText(userCount + " / 20");
     }
 }

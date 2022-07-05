@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proejct1.R;
 import com.example.proejct1.img.Fragment2_Adapter;
 import com.example.proejct1.model.Img_Data;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -38,10 +39,12 @@ public class Fragment2 extends Fragment {
         fragment2_adapter = new Fragment2_Adapter(arrayList);
         recyclerView.setAdapter(fragment2_adapter);
 
-        Button btn_add = (Button)v.findViewById(R.id.btn_add);
+        FloatingActionButton btn_add = v.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                v.findViewById(R.id.no_image2).setVisibility(View.INVISIBLE);
                 arrayList.add(new Img_Data(R.drawable.one));
                 arrayList.add(new Img_Data(R.drawable.two));
                 arrayList.add(new Img_Data(R.drawable.three));

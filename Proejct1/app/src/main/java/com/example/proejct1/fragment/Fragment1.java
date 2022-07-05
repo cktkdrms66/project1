@@ -1,6 +1,7 @@
 package com.example.proejct1.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,7 +45,7 @@ public class Fragment1 extends Fragment {
 
         findViewByIds(v);
 
-        setFloatingActionButton();
+        setViews();
         setRecyclerView();
 
         return v;
@@ -56,33 +57,39 @@ public class Fragment1 extends Fragment {
         noImage = v.findViewById(R.id.no_image);
     }
 
-    private void setFloatingActionButton() {
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity) getActivity()).callContactPermission();
-                floatingActionButton.setVisibility(View.INVISIBLE);
-                noImage.setVisibility(View.INVISIBLE);
-            }
-        });
+    private void setViews() {
 
-        noImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("qwe");
-                count++;
-
-                if (count == 5) {
-                    int score = Util.getData((Activity) MainActivity.context, "score", 0) + 10000;
-                    Util.saveData((Activity) MainActivity.context, "score",
-                            score);
-                    ((MainActivity) MainActivity.context).setGlobalScore(score);
-
-                    count = 0;
+        if (Util.getData((Activity) MainActivity.context, "contact_count", 0) != 0) {
+            floatingActionButton.setVisibility(View.GONE);
+            noImage.setVisibility(View.GONE);
+        } else {
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) getActivity()).callContactPermission();
+                    floatingActionButton.setVisibility(View.GONE);
+                    noImage.setVisibility(View.INVISIBLE);
                 }
+            });
 
-            }
-        });
+            noImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("qwe");
+                    count++;
+
+                    if (count == 5) {
+                        int score = Util.getData((Activity) MainActivity.context, "score", 0) + 10000;
+                        Util.saveData((Activity) MainActivity.context, "score",
+                                score);
+                        ((MainActivity) MainActivity.context).setGlobalScore(score);
+
+                        count = 0;
+                    }
+
+                }
+            });
+        }
     }
 
 
@@ -96,7 +103,16 @@ public class Fragment1 extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), 1));
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(), RecyclerView.VERTICAL, false)) ; // 상하 스크롤r
 
-        adapter.setItems(new ArrayList<Contact>());
+        int userCount = Util.getData((Activity) MainActivity.context, "contact_count", 0);
+        List<Contact> contacts = new ArrayList<>();
+        if (userCount != 0) {
+            for (int i = 0; i < userCount; i++) {
+                String userStr = Util.getData((Activity) MainActivity.context, "contact" + i, "");
+                String[] userInfos = userStr.split("/");
+                contacts.add(new Contact(userInfos[0], userInfos[1]));
+            }
+        }
+        adapter.setItems(contacts);
 
         recyclerView.setAdapter(adapter);
     }

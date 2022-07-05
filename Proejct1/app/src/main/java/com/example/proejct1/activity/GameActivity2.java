@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proejct1.R;
+import com.example.proejct1.fragment.Fragment1;
 import com.example.proejct1.util.Util;
 
 import java.util.Random;

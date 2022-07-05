@@ -48,8 +48,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                // HomeActivity.class is the activity to go after showing the splash screen.
+                moveMain();
             }
 
             @Override
@@ -57,25 +56,19 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
         ddabong.startAnimation(anim_FadeIn);
-        moveMain(4);
     }
 
-    private void moveMain(int sec) {
+    private void moveMain() {
         new Handler().postDelayed(new Runnable()
         {
             @SuppressLint("ResourceType")
             @Override
             public void run()
             {
-
-                //new Intent(현재 context, 이동할 activity)
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
-                startActivity(intent);	//intent 에 명시된 액티비티로 이동
-
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();	//현재 액티비티 종료
             }
-        }, 1000 * sec); // sec초 정도 딜레이를 준 후 시작
+        }, 20); // sec초 정도 딜레이를 준 후 시작
     }
 
 

@@ -85,13 +85,16 @@ public class MainActivity extends AppCompatActivity {
 
         setBragImage();
         setGlobalScore(Util.getData(this, "score", 0));
+
+        setDdabongImage(Util.getData(this, "user_count", 0) == 20);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setGlobalScore(Util.getData(this, "score", 0));
-
+        setDdabongImage(Util.getData(this, "user_count", 0) == 20);
     }
 
     @Override
@@ -177,7 +180,9 @@ public class MainActivity extends AppCompatActivity {
 
                 FeedTemplate feedTemplate = new FeedTemplate(
                         new Content(text,
-                                "https://postfiles.pstatic.net/MjAyMjA3MDRfMjU0/MDAxNjU2OTA3NjEyNjc4.7YdxLeFrn2iu3tWWEYmSrh1SHb3SyXkRAudojlR64W0g.C58TG-LzYamqGp87TdSHi91mIfY9zL5rky72Z_msNkYg.PNG.kln753/KakaoTalk_Image_2022-06-30-16-38-07.png?type=w966",
+                                Util.getData(MainActivity.this, "user_count", 0) == 20 ?
+                                        "https://postfiles.pstatic.net/MjAyMjA3MDVfNjAg/MDAxNjU2OTk4MTY5OTA5.SmOZCDOwSJ-VKHWP0yvJK4w6igmm26bRmWNIi67DA0Ig._HjuAstQeLeb4bw03JsM-f6B4okQ56X76EpjBMaOJMsg.PNG.kln753/pngwing.com.png?type=w966" :
+                                        "https://postfiles.pstatic.net/MjAyMjA3MDRfMjU0/MDAxNjU2OTA3NjEyNjc4.7YdxLeFrn2iu3tWWEYmSrh1SHb3SyXkRAudojlR64W0g.C58TG-LzYamqGp87TdSHi91mIfY9zL5rky72Z_msNkYg.PNG.kln753/KakaoTalk_Image_2022-06-30-16-38-07.png?type=w966",
                                 new Link("kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink",
                                         "kakao40d70cd10ff6eb2b1dca1f85ccb64b82://kakaolink")
                         ),
@@ -269,6 +274,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setGlobalScore(int score) {
         globalScoreTxt.setText(String.valueOf(score));
+    }
+
+    public void setDdabongImage(boolean isKing) {
+        bragImage.setImageResource(isKing ? R.drawable.king_ddabong : R.drawable.ddabong);
     }
 }
 

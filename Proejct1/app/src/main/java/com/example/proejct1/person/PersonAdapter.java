@@ -4,6 +4,7 @@ import static com.example.proejct1.util.Util.getStrWithHashTag;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -83,11 +85,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
             public void onClick(View view) {
                 score = Util.getData((Activity) context, "score", 0);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("20점을 사용해 확인하시겠습니까?")
+                int userCount = Util.getData((Activity) context, "user_count", 0);
+
+                int needScore = userCount * 20 + 10;
+
+                builder.setMessage(needScore + "점을 사용해 확인하시겠습니까?")
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if (score >= 20) {
+                                if (score >= needScore) {
                                     KonfettiView konfettiView = ((PersonListActivity) PersonListActivity.context).konfettiView;
                                     konfettiView.build()
                                             .addColors(Color.BLUE, Color.CYAN, Color.MAGENTA)
@@ -100,7 +106,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                                             .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
                                             .streamFor(300, 2000L);
 
-                                    score -= 20;
+                                    score -= needScore;
                                     Util.saveData((Activity) context, "score", score);
                                     ((MainActivity) MainActivity.context).setGlobalScore(score);
                                     ((PersonListActivity) PersonListActivity.context).setGlobalScore(score);
@@ -110,6 +116,24 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
                                             + getStrWithHashTag(item.getAge());
                                     holder.personText.setText(txt);
                                     Util.saveData((Activity) context, "user" + holder.getAdapterPosition(), 1);
+
+                                    int resultUserCount = userCount + 1;
+                                    Util.saveData((Activity) context, "user_count", resultUserCount);
+                                    ((PersonListActivity) PersonListActivity.context).setUserCount(resultUserCount);
+                                    ((PersonListActivity) PersonListActivity.context).setUserCount(resultUserCount);
+
+                                    if (resultUserCount == 20) {
+                                        Dialog dialog = new Dialog(PersonListActivity.context);
+                                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                        dialog.setContentView(R.layout.dialog_cele);
+                                        dialog.findViewById(R.id.next_button).setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        dialog.show();
+                                    }
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setMessage("점수가 부족합니다")

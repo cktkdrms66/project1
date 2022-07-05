@@ -118,7 +118,8 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
                     LottieAnimationView lottieView = ((LottieAnimationView)dialog.findViewById(R.id.lottieView));
 
 
-                    lottieView.setMinAndMaxFrame(0, 12);
+                    lottieView.setMinAndMaxFrame(1, 13);
+                    lottieView.setSpeed(0.5f);
                     lottieView.playAnimation();
 
 
@@ -156,6 +157,7 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
 
 
                             lottieView.setMinAndMaxFrame(0, 50);
+                            lottieView.setSpeed(1f);
                             lottieView.loop(false);
                             lottieView.playAnimation();
 
@@ -170,9 +172,9 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
                             int plusScore = 0;
                             if (value < 2) {
                                 plusScore = 0;
-                            } else if (value < 20) {
+                            } else if (value < 40) {
                                 plusScore = 30;
-                            } else if (value < 50) {
+                            } else if (value < 66) {
                                 plusScore = -30;
                             } else if (value < 80) {
                                 plusScore = 50;
