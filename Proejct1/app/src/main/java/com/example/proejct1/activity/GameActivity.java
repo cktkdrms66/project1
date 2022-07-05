@@ -52,6 +52,7 @@ public class GameActivity extends AppCompatActivity {
         start_btn = findViewById(R.id.start_btn);
         countDown_tv = findViewById(R.id.countDown_tv);
         scoreTxt = findViewById(R.id.score_tv);
+        countDown_tv.setVisibility(View.INVISIBLE);
 
 
         yabawiArrayList.add(yabawi11);
@@ -67,6 +68,7 @@ public class GameActivity extends AppCompatActivity {
                 if (!gameStart) {
                     if (!viewCircleMovingAni1.isPlaying && !viewCircleMovingAni2.isPlaying) {
                         gameStart = true;
+                        countDown_tv.setVisibility(View.VISIBLE);
                         for (int i = 0; i < yabawiArrayList.size(); i++) {
                             yabawiArrayList.get(i).isHaveBall = false;
                         }
