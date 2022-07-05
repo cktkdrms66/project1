@@ -49,8 +49,8 @@
 <img src="https://user-images.githubusercontent.com/43724508/177279578-6af09eed-f3a9-4088-abb1-aabbf6a21b8f.png" width="210">
 <img src="https://user-images.githubusercontent.com/43724508/177279598-ee82321a-53a1-449c-9e3a-a1407f9abce8.png" width="210">
 </p>
-<br><br><br>
-#### 카카오톡 자랑하기
+
+#### 카카오토 자랑하기 
 점수를 계속 쌓다보면 근질근질하지 않나요...? 당신의 점수를 친구들에게 자랑하세요. <br> 친구들을 도발해 앱 참여도를 높여주세요!
 <br><br>
 <p>
