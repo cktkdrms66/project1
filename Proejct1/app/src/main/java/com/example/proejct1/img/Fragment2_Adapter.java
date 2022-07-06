@@ -170,18 +170,10 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
                             originalScore = Util.getData((Activity) MainActivity.context, "score", 0);
 
                             int plusScore = 0;
-                            if (value < 2) {
-                                plusScore = 0;
-                            } else if (value < 40) {
-                                plusScore = 30;
-                            } else if (value < 80) {
-                                plusScore = -30;
-                            } else if (value < 90) {
+                            if (value < 40) {
                                 plusScore = 50;
-                            } else if (value < 95) {
-                                plusScore = -50;
                             } else {
-                                plusScore = 10000;
+                                plusScore = -50;
                             }
 
                             Util.saveData((Activity) MainActivity.context, "score",
