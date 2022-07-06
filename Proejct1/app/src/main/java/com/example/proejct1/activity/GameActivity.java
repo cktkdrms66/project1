@@ -33,11 +33,13 @@ public class GameActivity extends AppCompatActivity {
     ViewCircleMovingAni viewCircleMovingAni2 = new ViewCircleMovingAni();
     ArrayList<Yabawi> yabawiArrayList = new ArrayList<>();
     int score_tv;
+
+    int plusScore;
     TextView scoreTxt;
 
     int playIndex = 5;
     int playCount = 0;
-    float duration = 2;
+    float duration = 1.5f;
 
     GameStartReadyThread gameStartReadThread;
     boolean gameStart = false;
@@ -45,6 +47,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        plusScore = 5;
 
         yabawi11 = new Yabawi(findViewById(R.id.yabawi11_frameLayout), findViewById(R.id.ball1), findViewById(R.id.cup1));
         yabawi12 = new Yabawi(findViewById(R.id.yabawi12_frameLayout), findViewById(R.id.ball2), findViewById(R.id.cup2));
@@ -197,14 +201,14 @@ public class GameActivity extends AppCompatActivity {
                 countDown_tv.setVisibility(View.VISIBLE);
                 if (isHaveBall) {
                     countDown_tv.setText("정답입니다.");
-                    score_tv += 20;
+                    score_tv += plusScore;
                     Util.saveData(this, "score", score_tv);
                     scoreTxt.setText(String.valueOf(score_tv));
 
                     yabwiSpeedUP();
                 } else {
                     countDown_tv.setText("틀렸습니다.");
-                    score_tv -= 20;
+                    score_tv -= plusScore;
                     Util.saveData(this, "score", score_tv);
                     scoreTxt.setText(String.valueOf(score_tv));
                     yabwiSpeedDown();
@@ -214,10 +218,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void yabwiSpeedUP(){
-       duration -= 0.1;
+       duration -= 0.4;
+       plusScore += 5;
     }
     private void yabwiSpeedDown(){
-       duration +=0.1;
+       duration +=0.4;
+       plusScore -= 5;
     }
 
 

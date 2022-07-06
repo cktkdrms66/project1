@@ -174,9 +174,9 @@ public class Fragment2_Adapter extends RecyclerView.Adapter<Fragment2_Adapter.Cu
                                 plusScore = 0;
                             } else if (value < 40) {
                                 plusScore = 30;
-                            } else if (value < 66) {
-                                plusScore = -30;
                             } else if (value < 80) {
+                                plusScore = -30;
+                            } else if (value < 90) {
                                 plusScore = 50;
                             } else if (value < 95) {
                                 plusScore = -50;
